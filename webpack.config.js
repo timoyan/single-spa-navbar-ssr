@@ -5,13 +5,13 @@ const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
 
 module.exports = webpackConfigEnv => {
   const defaultConfig = singleSpaDefaults({
-    orgName: "isomorphic-mf",
+    orgName: "timo",
     projectName: "navbar",
     webpackConfigEnv
   });
 
   const serverConfig = singleSpaDefaults({
-    orgName: "isomorphic-mf",
+    orgName: "timo",
     projectName: "navbar",
     webpackConfigEnv
   });
