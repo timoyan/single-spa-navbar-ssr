@@ -48,9 +48,9 @@ export default function Root(props) {
           <NavBar title={"Pokedex SSR"} themeChange={() => handleDarkMode()} />
         </div>
       </ThemeProvider>
-      <Route exact path="/">
+      {/* <Route exact path="/">
         <Redirect to="/pokemons" />
-      </Route>
+      </Route> */}
     </>
   );
 
