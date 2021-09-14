@@ -1,21 +1,21 @@
 const webpackMerge = require("webpack-merge");
-const singleSpaDefaults = require("webpack-config-single-spa-react");
+const singleSpaDefaults = require("webpack-config-single-spa-react-ts");
 const path = require("path");
 const EsmWebpackPlugin = require("@purtuga/esm-webpack-plugin");
-const StandaloneSingleSpaPlugin = require("standalone-single-spa-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = webpackConfigEnv => {
+module.exports = (webpackConfigEnv, argv) => {
   const defaultConfig = singleSpaDefaults({
     orgName: "timo",
     projectName: "navbar",
-    webpackConfigEnv
+    webpackConfigEnv,
+    argv
   });
 
   const serverConfig = singleSpaDefaults({
     orgName: "timo",
     projectName: "navbar",
-    webpackConfigEnv
+    webpackConfigEnv,
+    argv
   });
 
   defaultConfig.plugins = defaultConfig.plugins.filter(
@@ -24,6 +24,8 @@ module.exports = webpackConfigEnv => {
   serverConfig.plugins = serverConfig.plugins.filter(
     p => p.constructor.name !== "CleanWebpackPlugin"
   );
+
+  console.log(defaultConfig.module.rules);
 
   return webpackConfigEnv.standalone
     ? [
@@ -34,15 +36,15 @@ module.exports = webpackConfigEnv => {
             historyApiFallback: true,
             watchContentBase: true,
             open: true
-          },
-          plugins: [
-            new HtmlWebpackPlugin(),
-            new StandaloneSingleSpaPlugin({
-              appOrParcelName: "@timo/navbar",
-              activeWhen: ["/navbar"],
-              HtmlWebpackPlugin
-            })
-          ]
+          }
+          // plugins: [
+          //   new HtmlWebpackPlugin(),
+          //   new StandaloneSingleSpaPlugin({
+          //     appOrParcelName: "@timo/navbar",
+          //     activeWhen: ["/navbar"],
+          //     HtmlWebpackPlugin
+          //   })
+          // ]
         })
       ]
     : [
@@ -61,11 +63,7 @@ module.exports = webpackConfigEnv => {
             filename: "server.mjs"
           },
           externals: defaultConfig.externals.concat(/react-dom\/.+/),
-          plugins: [
-            new EsmWebpackPlugin({
-              moduleExternals: true
-            })
-          ]
+          plugins: [new EsmWebpackPlugin()]
         })
       ];
 };

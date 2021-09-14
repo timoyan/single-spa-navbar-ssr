@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOMServer from "react-dom/server.js";
-import Root from "./root.component.js";
+import Root from "./root.component";
 import { ServerStyleSheets } from "@material-ui/core/styles";
 
 export const getResponseHeaders = props => {
