@@ -3,7 +3,7 @@
 The navbar microfrontend
 
 ## Packages Installation
-
+- Node version >= 14.15.0
 - Run `yarn`
 
 ## Local development
